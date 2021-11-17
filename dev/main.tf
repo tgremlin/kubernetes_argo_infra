@@ -4,6 +4,12 @@ provider "aws" {
   region = local.region
 }
 
+resource "random_string" "random" {
+  length = 16
+  special = true
+  override_special = "/@£$"
+}
+
 ################################################################################
 # VPC Module
 ################################################################################
@@ -23,16 +29,16 @@ module "vpc" {
   enable_dns_hostnames = true
 
   tags = {
-    "kubernetes.io/cluster/${local.eks_cluster_name}" = "shared",
+    "kubernetes.io/cluster/${var.name}" = "shared",
   }
 
   public_subnet_tags = {
-    "kubernetes.io/cluster/${local.eks_cluster_name}" = "shared"
+    "kubernetes.io/cluster/${var.name}" = "shared"
     "kubernetes.io/role/elb"                          = "1"
   }
 
   private_subnet_tags = {
-    "kubernetes.io/cluster/${local.eks_cluster_name}" = "shared"
+    "kubernetes.io/cluster/${var.name}" = "shared"
     "kubernetes.io/role/internal-elb"                 = "1"
   }
 }
@@ -44,7 +50,7 @@ module "vpc" {
 module "eks" {
   source = "terraform-aws-modules/eks/aws"
 
-  cluster_name    = "${var.name}-${random_string.suffix.result}"
+  cluster_name    = "${var.name}-${random.suffix.result}"
   cluster_version = local.cluster_version
 
   vpc_id          = module.vpc.vpc_id
