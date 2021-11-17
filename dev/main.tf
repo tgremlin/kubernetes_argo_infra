@@ -147,6 +147,6 @@ module "eks" {
 module "argo_cd" {
   source = "runoncloud/argocd/kubernetes"
 
-  namespace       = "argocd"
+  namespace       = "default"
   argo_cd_version = "1.8.7"
 }
