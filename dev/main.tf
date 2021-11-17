@@ -42,7 +42,7 @@ module "vpc" {
 ################################################################################
 
 module "eks" {
-  source = "../.."
+  source = "terraform-aws-modules/eks/aws"
 
   cluster_name    = "${local.eks_cluster_name}-${random_string.suffix.result}"
   cluster_version = local.cluster_version
