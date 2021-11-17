@@ -64,7 +64,7 @@ module "eks" {
   # available under https://docs.aws.amazon.com/eks/latest/userguide/fargate-getting-started.html
   node_groups = {
     example = {
-      desired_capacity = 1
+      desired_capacity = 3
 
       instance_types = ["t3.micro"]
       k8s_labels = {
