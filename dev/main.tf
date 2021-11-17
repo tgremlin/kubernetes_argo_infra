@@ -50,7 +50,7 @@ module "vpc" {
 module "eks" {
   source = "terraform-aws-modules/eks/aws"
 
-  cluster_name    = "${var.name}-${random_string.random.suffix.result}"
+  cluster_name    = "${var.name}-${random_string.random.result}"
   cluster_version = local.cluster_version
 
   vpc_id          = module.vpc.vpc_id
