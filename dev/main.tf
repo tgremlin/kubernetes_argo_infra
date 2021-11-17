@@ -13,7 +13,7 @@ module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
   version = "3.11.0"
 
-  name                 = ${var.environment}-${var.name}
+  name                 = "${var.environment}-${var.name}"
   cidr                 = var.cidr
   azs                  = data.aws_availability_zones.available.names
   private_subnets      = var.private_subnets
