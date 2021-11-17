@@ -50,7 +50,7 @@ module "vpc" {
 module "eks" {
   source = "terraform-aws-modules/eks/aws"
 
-  cluster_name    = "${var.name}-${random.suffix.result}"
+  cluster_name    = "${var.name}-${random_string.suffix.result}"
   cluster_version = local.cluster_version
 
   vpc_id          = module.vpc.vpc_id
@@ -135,7 +135,7 @@ module "eks" {
   manage_aws_auth = false
 
   tags = {
-    Example    = local.name
+    Example    = var.name
     GithubRepo = "terraform-aws-eks"
     GithubOrg  = "terraform-aws-modules"
   }
